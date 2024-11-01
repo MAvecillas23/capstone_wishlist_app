@@ -26,12 +26,12 @@ def about(request):
 
     return render(request, 'travel_wishlist/about.html', {'author': author, 'about': about})
 
-# places visited
+# places visited... visited page
 def places_visited(request):
     visited = Place.objects.filter(visited=True)
     return render(request, 'travel_wishlist/visited.html', {'visited': visited})
 
-
+# this function is for when the visited button is pressed for a place
 def place_was_visited(request, place_pk):
     if request.method == 'POST':
         # place = Place.objects.get(pk=place_pk)

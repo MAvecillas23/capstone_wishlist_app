@@ -6,7 +6,7 @@ class Place(models.Model):
     visited = models.BooleanField(default=False) # bool for visited or not
 
     def __str__(self):
-        return f'{self.name} visted? {self.visited}'
+        return f'{self.name} visited? {self.visited}'
 
 
 
