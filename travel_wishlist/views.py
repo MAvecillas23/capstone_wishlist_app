@@ -1,5 +1,4 @@
 from urllib.error import HTTPError
-
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Place
 from .forms import NewPlaceForm, TripReviewForm
@@ -87,9 +86,10 @@ def place_details(request, place_pk):
 def delete_place(request, place_pk):
     place = get_object_or_404(Place, pk=place_pk)
     # if user wanting to delete place is the correct user delete place
+    print(place)
     if place.user == request.user:
         place.delete()
         return redirect('place_list')
     # don't delete place
     else:
-        return HttpResponseForbidden
+        return HttpResponseForbidden()

@@ -2,7 +2,7 @@ from django.core.files.storage import default_storage
 from django.db import models
 from django.contrib.auth.models import User
 
-# similar to PeeWee create db here
+# create place model here
 class Place(models.Model):
     user = models.ForeignKey('auth.User', null=False, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)  # character field for location name
@@ -14,7 +14,7 @@ class Place(models.Model):
     # replace photo
     def save(self, *args, **kwargs):
         old_place = Place.objects.filter(pk=self.pk).first()
-        if old_place and old_place.photos:
+        if old_place and old_place.photo:
             if old_place.photo != self.photo:
                 self.delete_photo(old_place.photo)
         super().save(*args, **kwargs)
@@ -23,12 +23,13 @@ class Place(models.Model):
     def delete_photo(self, photo):
         if default_storage.exists(photo.name):
             default_storage.delete(photo.name)
+
     # delete photo from IDE
     def delete(self, *args, **kwargs):
         if self.photo:
             self.delete_photo(self.photo)
 
-            super().delete(*args, **kwargs)
+        super().delete(*args, **kwargs)
 
 
     def __str__(self):
